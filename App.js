@@ -6,11 +6,15 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+// import {Portal, PortalHost} from '@gorhom/portal';
+const Tab = createBottomTabNavigator();
 
 const text =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla urna magna, pretium quis lacus vel, ullamcorper egestas odio. Proinaliquam sapien ut quam consequat, eget facilisis metus auctor. Duis varius blandit metus in tristique.';
 
-const App = () => {
+const FirstScreen = () => {
   const bottomSheetRef = useRef(null);
 
   const snapPoints = useMemo(() => [0, '50%'], []);
@@ -24,6 +28,7 @@ const App = () => {
           }}
         />
       </View>
+      {/*<Portal>*/}
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
@@ -33,7 +38,23 @@ const App = () => {
           <Text>{[...Array(8).keys()].map(() => text)}</Text>
         </BottomSheetScrollView>
       </BottomSheet>
+      {/*</Portal>*/}
     </>
+  );
+};
+
+const SecondScreen = () => null;
+
+const App = () => {
+  return (
+    // <PortalHost>
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="First" component={FirstScreen} />
+        <Tab.Screen name="Second" component={SecondScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+    // </PortalHost>
   );
 };
 
@@ -43,7 +64,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
-    backgroundColor: '#E2E2E2',
   },
   contentContainer: {
     flex: 1,
